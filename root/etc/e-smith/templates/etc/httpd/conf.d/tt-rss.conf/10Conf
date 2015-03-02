@@ -3,7 +3,7 @@
 if ((${'tt-rss'}{'status'} || 'enabled') eq 'enabled'){
 
     my $alias = ((${'tt-rss'}{'AliasOnPrimary'} || 'enabled') eq 'enabled' ) ? 'Alias /tt-rss /usr/share/tt-rss':'';
-    my $allow = ((${'tt-rss'}{'access'} || 'private') eq 'public') ? 'all':"$localAccess $externalSSLAccess";
+    my $allow = ((${'tt-rss'}{'access'} || 'private') eq 'public') ? 'all':"$localAccess";
     my $auth = ((${'tt-rss'}{'Authentication'} || 'http') eq 'http') ? "AuthName \"Tiny Tiny RSS\"\n" .
                     "    AuthType Basic\n" .
                     "    AuthBasicProvider external\n" .
