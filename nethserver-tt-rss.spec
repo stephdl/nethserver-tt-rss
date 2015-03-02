@@ -1,28 +1,27 @@
 # Authority: vip-ire
 # Name: Daniel Berteaud
 
-%define name smeserver-tt-rss
+%define name nethserver-tt-rss
 %define version 0.2.8
 %define release 1
-Summary: sme server integration of tt-rss
+Summary: NethServer integration of tt-rss
 Name: %{name}
 Version: %{version}
 Release: %{release}%{?dist}
 License: GNU GPL version 2
-URL: http://www.zabbix.com/
-Group: SMEserver/addon
+URL: 
+Group: Neth/addon
 Source: %{name}-%{version}.tar.gz
 
 BuildArchitectures: noarch
 BuildRequires: e-smith-devtools
 BuildRoot: /var/tmp/%{name}-%{version}
-Requires: e-smith-release
 Requires: tt-rss >= 1.7.9
-Requires: smeserver-webapps-common
+Requires: nethserver-httpd, nethserver-mysql, nethserver-directory
 AutoReqProv: no
 
 %description
-smserver integration of TIny Tiny RSS
+NethServer integration of TIny Tiny RSS
 Tiny Tiny RSS is a feature rich, web based feed reader
 
 %changelog

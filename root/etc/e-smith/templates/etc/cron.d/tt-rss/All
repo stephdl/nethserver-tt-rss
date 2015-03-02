@@ -1,1 +1,2 @@
-# Cron job disabled, SME Server uses the daemon to update the feeds
+# FIXME we should use the buildin php update
+*/30 * * * * /usr/bin/php /usr/share/tt-rss/update.php --feeds --quiet

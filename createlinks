@@ -2,20 +2,17 @@
 
 use esmith::Build::CreateLinks  qw(:all);
 
+
+my $event = "nethserver-tt-rss-update";
+event_actions($event,
+'initialize-default-databases' => '00',
+'nethserver-roundcubemail-conf' => '20');
+
 # Templates to expand
-templates2events("/etc/e-smith/sql/init/tt-rss", qw(bootstrap-console-save webapps-update));
-templates2events("/usr/share/tt-rss/config.php", qw(bootstrap-console-save webapps-update));
-templates2events("/etc/cron.d/tt-rss", qw(bootstrap-console-save webapps-update));
+templates2events("/usr/share/tt-rss/config.php", $event);
+templates2events("/etc/cron.d/tt-rss", $event);
 
-# tt-rss daemon
-safe_symlink("restart", "root/etc/e-smith/events/webapps-update/services2adjust/tt-rss");
-safe_symlink("../daemontools" , 'root/etc/rc.d/init.d/supervise/tt-rss');
-safe_symlink("/var/service/tt-rss" , 'root/service/tt-rss');
-safe_touch("root/var/service/tt-rss/down");
-service_link_enhanced("tt-rss", "S98", "7");
-service_link_enhanced("tt-rss", "K10", "6");
-service_link_enhanced("tt-rss", "K10", "0");
-
+event_services($event, 'httpd' => 'reload');
 
 # PHP header and footer
 safe_symlink("/etc/e-smith/templates-default/template-begin-php", "root/etc/e-smith/templates/usr/share/tt-rss/config.php/template-begin");
