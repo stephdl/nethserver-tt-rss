@@ -1,0 +1,22 @@
+{
+
+my $db = ${'tt-rss'}{'DbName'} || 'rssdb';
+my $user = ${'tt-rss'}{'DbUser'} || 'rssuser';
+my $pass = ${'tt-rss'}{'DbPassword'} || 'secret';
+my $port = $mysqld{'TCPPort'} || '3306';
+
+$OUT .=<<"HERE";
+
+        define('DB_TYPE', "mysql");
+        define('DB_HOST', "localhost");
+        define('DB_PORT', "$port");
+        define('DB_USER', "$user");
+        define('DB_NAME', "$db");
+        define('DB_PASS', "$pass");
+
+HERE
+}
+
+        define('MYSQL_CHARSET', 'UTF8');
+        // Connection charset for MySQL.
+

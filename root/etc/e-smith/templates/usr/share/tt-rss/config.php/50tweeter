@@ -1,0 +1,9 @@
+
+        define('ENABLE_TWEET_BUTTON', false);
+        // Enable 'tweet this' button for articles
+
+        define('CONSUMER_KEY', '');
+        define('CONSUMER_SECRET', '');
+        // Your OAuth instance authentication information for Twitter, visit
+        // http://twitter.com/oauth_clients to register your instance.
+

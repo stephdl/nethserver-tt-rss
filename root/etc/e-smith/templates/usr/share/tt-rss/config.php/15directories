@@ -1,0 +1,25 @@
+        define('SELF_URL_PATH', '');
+        // Full URL of your tt-rss installation. This should be set to the
+        // location of tt-rss directory, e.g. http://yourserver/tt-rss/
+        // You need to set this option correctly otherwise several features
+        // including PUSH, bookmarklets and browser integration will not work properly.
+
+        define('CACHE_DIR', '/var/cache/tt-rss/');
+        // Local cache directory for RSS feed content.
+
+        define('ICONS_DIR', "rssicons");
+        define('ICONS_URL', "rssicons");
+        // Local and URL path to the directory, where feed favicons are stored.
+        // Unless you really know what you're doing, please keep those relative
+        // to tt-rss main directory.
+
+        define('TMP_DIRECTORY', '/tmp');
+        // Directory for temporary files
+
+        define('PHP_EXECUTABLE', '/usr/bin/php');
+        // Path to PHP executable
+
+        define('LOCK_DIRECTORY', '/var/lock/tt-rss');
+        // Directory for lockfiles, must be writable to the user you run
+        // daemon process or cronjobs under
+

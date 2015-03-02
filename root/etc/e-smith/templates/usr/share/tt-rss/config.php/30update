@@ -1,0 +1,35 @@
+
+        define('ENABLE_UPDATE_DAEMON', true);
+        // This enables different mechanism for user-triggered updates designed
+        // for update daemon running in background on the server.
+        // This option suggests FEEDS_FRAME_REFRESH set to a small value 
+        // (like 60 seconds, depending on number of users and server/bandwidth load).
+
+        define('DAEMON_SLEEP_INTERVAL', 60);
+        // Interval between update daemon update runs
+
+        define('DAEMON_UPDATE_LOGIN_LIMIT', 0);
+        // Stop updating feeds of user who haven't logged in specified 
+        // amount of days. 0 disables.
+
+        define('DAEMON_FEED_LIMIT', 60);
+        // Limits the amount of feeds daemon (or a cronjob) updates on one run
+
+        define('FORCE_ARTICLE_PURGE', 0);
+        // When this option is not 0, users ability to control feed purging
+        // intervals is disabled and all articles (which are not starred) 
+        // older than this amount of days are purged.
+
+        define('COUNTERS_MAX_AGE', 365);
+        // Hard limit for unread counters calculation. Try tweaking this
+        // parameter to speed up tt-rss when having a huge number of articles
+        // in the database (better yet, enable purging!)
+
+        define('SIMPLE_UPDATE_MODE', false);
+        // Enables fallback update mode where tt-rss tries to update feeds in
+        // background while tt-rss is open in your browser. 
+        // If you don't have a lot of feeds and don't want to or can't run 
+        // background processes while not running tt-rss, this method is generally 
+        // viable to keep your feeds up to date.
+        // Still, there are more robust (and recommended) updating methods 
+        // available, you can read about them here: http://tt-rss.org/wiki/UpdatingFeeds

@@ -1,0 +1,59 @@
+{
+
+my $auth = ${'tt-rss'}{'Authentication'} || 'http';
+my $plugins = ($auth eq 'internal') ? 'auth_internal':'auth_remote';
+$plugin .= ',note';
+my $multi = ((${'tt-rss'}{'MultiUser'} || 'enabled') eq 'enabled') ? 'false':'true';
+
+$OUT .=<<"HERE";
+
+        define('SINGLE_USER_MODE',$multi);
+        // Operate in single user mode, disables all functionality related to
+        // multiple users.
+
+        define('PLUGINS','$plugins');
+        // Comma-separated list of plugins to load automatically for all users.
+        // System plugins have to be specified here. Please enable at least one
+        // authentication plugin here (auth_*).
+        // Users may enable other user plugins from Preferences/Plugins but may not
+        // disable plugins specified in this list.
+HERE
+}
+
+        define('AUTH_AUTO_CREATE',true);
+        // If users are authenticated by your web server, set this to true if
+        // You want new users to be automaticaly created in tt-rss database
+        // on first login
+
+        define('AUTH_AUTO_LOGIN',true);
+        // Set this to true if you use ALLOW_REMOTE_USER_AUTH and you want
+        // to skip the login form. If set to true, users won't be able to select
+        // profile
+
+        define('DATABASE_BACKED_SESSIONS', false);
+        // Store session information in a database, recommended for multiuser 
+        // configurations. Doesn't seem to work for everyone, so enable with caution.
+        // tt-rss uses default PHP session storing mechanism if disabled.
+
+        define('SESSION_CHECK_ADDRESS', 1);
+        // Check client IP address when validating session:
+        // 0 - disable checking
+        // 1 - check first 3 octets of an address (recommended)
+        // 2 - check first 2 octets of an address
+        // 3 - check entire address
+
+        define('SESSION_COOKIE_LIFETIME', 0);
+        // Default lifetime of a session (e.g. login) cookie. In seconds, 
+        // 0 means cookie will be deleted when browser closes.
+
+        define('SESSION_EXPIRE_TIME', 86400);
+        // Hard expiration limit for sessions. Should be
+        // greater or equal to SESSION_COOKIE_LIFETIME
+
+	define('FEED_CRYPT_KEY', '');
+	// Key used for encryption of passwords for password-protected feeds
+	// in the database. A string of 24 random characters. If left blank, encryption
+	// is not used. Requires mcrypt functions.
+	// Warning: changing this key will make your stored feed passwords impossible
+	// to decrypt.
+

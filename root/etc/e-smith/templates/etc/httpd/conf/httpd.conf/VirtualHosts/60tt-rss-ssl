@@ -1,0 +1,14 @@
+{
+my $sslport = $modSSL{'TCPPort'} || '443';
+my $status = ${'tt-rss'}{'status'} || 'enabled';
+my $alias = ${'tt-rss'}{'AliasOnPrimary'} || 'enabled';
+
+if (($port ne $sslport) && ($status eq 'enabled') && ($alias eq 'enabled')){
+
+    ## Redirect Web Address to Secure Address
+    $OUT .= "    RewriteEngine on\n";
+    $OUT .= "    RewriteRule ^/tt-rss(/.*|\$) https://%{HTTP_HOST}/tt-rss\$1 \[L,R\]\n";
+
+}
+}
+
