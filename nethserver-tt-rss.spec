@@ -19,7 +19,7 @@ BuildRequires: nethserver-devtools
 BuildRoot: /var/tmp/%{name}-%{version}
 Requires: tt-rss >= 1.7.9
 Requires: nethserver-httpd, nethserver-mysql, nethserver-directory
-Requires: mod_authnz_external, pwauth
+Requires: mod_authnz_external, pwauth, php-mbstring, php-mysql
 AutoReqProv: no
 
 %description
