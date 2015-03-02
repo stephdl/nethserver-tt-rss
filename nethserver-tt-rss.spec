@@ -3,7 +3,7 @@
 
 %define name nethserver-tt-rss
 %define version 0.2.8
-%define release 1
+%define release 2
 Summary: NethServer integration of tt-rss
 Name: %{name}
 Version: %{version}
