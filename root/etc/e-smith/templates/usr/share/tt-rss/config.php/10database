@@ -1,0 +1,24 @@
+{
+
+use NethServer::Password;
+use esmith::ConfigDB;
+my $db = esmith::ConfigDB->open_ro;
+
+my $password = NethServer::Password::store('ttrss') || die('Could not generate ttrss password!');
+my $port = $db->get_prop('tt-rss','MysqlPort')|| '3306';
+
+$OUT .=<<"HERE";
+
+        define('DB_TYPE', "mysql");
+        define('DB_HOST', "localhost");
+        define('DB_PORT', "$port");
+        define('DB_USER', "ttrss");
+        define('DB_NAME', "ttrss");
+        define('DB_PASS', "$password");
+
+HERE
+}
+
+        define('MYSQL_CHARSET', 'UTF8');
+        // Connection charset for MySQL.
+

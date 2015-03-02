@@ -1,0 +1,14 @@
+
+        define('ENABLE_REGISTRATION', false);
+        // Allow users to register themselves. Please be vary that allowing
+        // random people to access your tt-rss installation is a security risk
+        // and potentially might lead to data loss or server exploit. Disabled
+        // by default.
+
+        define('REG_NOTIFY_ADDRESS', 'admin@{$DomainName}');
+        // Email address to send new user notifications to.
+
+        define('REG_MAX_USERS', 0);
+        // Maximum amount of users which will be allowed to register on this
+        // system. 0 - no limit.
+

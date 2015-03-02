@@ -1,0 +1,60 @@
+#!/usr/bin/perl -w
+
+package esmith;
+
+use strict;
+use Errno;
+use esmith::util;
+use NethServer::Password;
+use NethServer::Directory;
+
+NethServer::Directory->new()->configServiceAccount('tt-rss', NethServer::Directory::FIELDS_READ) || die("Failed to register tt-rss service account");
+
+if ( -d '/var/lib/mysql/ttrss') {
+    system ('su -s /bin/sh apache -c "/usr/bin/php /usr/share/tt-rss/update.php --update-schema"');
+}
+
+elsif ( ! -d '/var/lib/mysql/ttrss') {
+
+my $password = NethServer::Password::store('ttrss') || die('Could not generate ttrss password!');
+my $commands = join("\n",
+              "create database ttrss;",
+	      "GRANT ALL PRIVILEGES ON `ttrss`.* TO 'ttrss'\@'localhost' IDENTIFIED BY '$password';",
+	      "FLUSH PRIVILEGES;"
+     ) . "\n";
+
+print $commands;
+
+open(FH, '|-', '/usr/bin/mysql -B -f') || die("[ERROR] Could not connect to mysql");
+print FH $commands;     
+close(FH);
+
+my @dirs = glob "/usr/share/tt-rss*";
+
+system("/usr/bin/mysql ttrss < ".$dirs[0]."/schema/ttrss_schema_mysql.sql");
+
+my $altercommands = join("\n",
+"USE mysql;",
+"REPLACE INTO db (",
+"host,",
+"db,",
+"user,",
+"select_priv, insert_priv, update_priv, delete_priv,",
+"create_priv, alter_priv, index_priv, drop_priv, create_tmp_table_priv,",
+"grant_priv, lock_tables_priv, references_priv)",
+"VALUES (",
+"'localhost',",
+"'ttrss',",
+"'ttrss',",
+"'Y', 'Y', 'Y', 'Y',",
+"'Y', 'Y', 'Y', 'Y', 'Y',",
+"'N', 'Y', 'Y');",
+"FLUSH PRIVILEGES;"
+) . "\n";
+
+print $altercommands;
+
+open(FH, '|-', '/usr/bin/mysql -B -f') || die("[ERROR] Could not connect to mysql");
+print FH $altercommands;
+close(FH);
+}

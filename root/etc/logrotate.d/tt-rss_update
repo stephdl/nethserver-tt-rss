@@ -1,0 +1,9 @@
+/var/log/tt-rss_update/tt-rss.log {
+        missingok
+        copytruncate
+        rotate 12
+        compress
+        weekly
+        create 0660 apache apache
+}
+

@@ -1,0 +1,22 @@
+#!/usr/bin/perl -w
+
+use esmith::Build::CreateLinks  qw(:all);
+
+
+my $event = "nethserver-tt-rss-update";
+event_actions($event,
+'initialize-default-databases' => '00',
+'nethserver-tt-rss-conf' => '20',
+'nethserver-tt-rss-service-conf' => '30');
+
+# Templates to expand
+templates2events("/usr/share/tt-rss/config.php", $event);
+templates2events("/etc/cron.d/tt-rss", $event);
+templates2events("/etc/httpd/conf.d/tt-rss.conf", $event);
+templates2events("/etc/httpd/conf/httpd.conf", $event);
+event_services($event, 'httpd' => 'reload');
+
+# PHP header and footer
+safe_symlink("/etc/e-smith/templates-default/template-begin-php", "root/etc/e-smith/templates/usr/share/tt-rss/config.php/template-begin");
+safe_symlink("/etc/e-smith/templates-default/template-end-php", "root/etc/e-smith/templates/usr/share/tt-rss/config.php/template-end");
+

@@ -1,0 +1,10 @@
+#
+# 50tt-rss
+#
+{
+if ( $Port == 80 || ! defined $SslMode )
+{
+$OUT .= " RewriteEngine On\n";
+$OUT .= " RewriteRule ^/tt-rss(/.*)?\$ https://%{HTTP_HOST}/tt-rss\$1 [R=301,L]\n";
+}
+}
