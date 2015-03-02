@@ -9,15 +9,17 @@ Name: %{name}
 Version: %{version}
 Release: %{release}%{?dist}
 License: GNU GPL version 2
-URL: 
+URL: http://dev.nethserver.org/projects/nethforge/wiki/%{name} 
 Group: Neth/addon
 Source: %{name}-%{version}.tar.gz
 
 BuildArchitectures: noarch
-BuildRequires: e-smith-devtools
+BuildRequires: perl
+BuildRequires: nethserver-devtools 
 BuildRoot: /var/tmp/%{name}-%{version}
 Requires: tt-rss >= 1.7.9
 Requires: nethserver-httpd, nethserver-mysql, nethserver-directory
+Requires: mod_authnz_external, pwauth
 AutoReqProv: no
 
 %description
