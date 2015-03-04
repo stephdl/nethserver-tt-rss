@@ -1,15 +1,17 @@
 {
 
 use NethServer::Password;
-my $password = NethServer::Password::store('tt-rss') || die('Could not generate tt-rss password!');
+
+my $password = NethServer::Password::store('ttrss') || die('Could not generate tt-rss password!');
+my $port = $tt-rss{MysqlPort}|| '3306';
 
 $OUT .=<<"HERE";
 
         define('DB_TYPE', "mysql");
         define('DB_HOST', "localhost");
-        define('DB_PORT', "3306");
-        define('DB_USER', "tt-rssuser");
-        define('DB_NAME', "tt-rssdb");
+        define('DB_PORT', "$port");
+        define('DB_USER', "ttrss");
+        define('DB_NAME', "ttrss");
         define('DB_PASS', "$password");
 
 HERE

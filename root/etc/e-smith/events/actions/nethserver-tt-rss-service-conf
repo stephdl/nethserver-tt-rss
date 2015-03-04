@@ -1,0 +1,5 @@
+#!/bin/sh
+chkconfig tt-rss --add
+chkconfig tt-rss --level 2345 on
+signal-event runlevel-adjust
+
