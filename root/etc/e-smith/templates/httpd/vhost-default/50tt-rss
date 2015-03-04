@@ -1,5 +1,5 @@
 #
-# 50phpmyadmin
+# 50tt-rss
 #
 {
 if ( $Port == 80 || ! defined $SslMode )
