@@ -107,7 +107,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add tt-rss
-/sbin/e-smith/signal-event runlevel-adjust
+#/sbin/e-smith/signal-event runlevel-adjust
 %preun
 if [ "$1" = 0 ]; then
     # stop tt-rss silently, but only if it's running
