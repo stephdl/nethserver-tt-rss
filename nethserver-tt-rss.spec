@@ -105,5 +105,22 @@ rm -f %{name}-%{version}-filelist
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+/sbin/chkconfig --add tt-rss
+/sbin/e-smith/signal-event runlevel-adjust
+%preun
+if [ "$1" = 0 ]; then
+    # stop tt-rss silently, but only if it's running
+    /sbin/service tt-rss stop &>/dev/null
+    /sbin/chkconfig --del tt-rss
+fi
+
+exit 0
+
 %postun
+if [ "$1" != 0 ]; then
+	/sbin/service tt-rss restart 2>&1 > /dev/null
+fi
+
+exit 0
 

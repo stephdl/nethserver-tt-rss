@@ -1,6 +1,13 @@
-#!/bin/sh
+#!/usr/bin/perl -w
 
-chkconfig tt-rss --add
-chkconfig tt-rss --level 2345 on
-signal-event runlevel-adjust
+use esmith::ConfigDB;
+my $db = esmith::ConfigDB->open_ro;
+my $status = $db->get_prop('tt-rss','status')|| 'disabled';
 
+if ($status eq enabled) {
+system ('/sbin/service tt-rss restart');
+}
+
+else {
+system ('/sbin/service tt-rss stop');
+}
