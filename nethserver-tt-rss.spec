@@ -97,7 +97,6 @@ rm -f %{name}-%{version}-filelist
 /sbin/e-smith/genfilelist $RPM_BUILD_ROOT \
   --dir /var/lock/tt-rss 'attr(0770,apache,apache)' \
   --dir /var/log/tt-rss_update 'attr(0770,apache,apache)' \
-  --file /etc/init.d/tt-rss 'attr(0755,root,root)' \
   > %{name}-%{version}-filelist
 
 %files -f %{name}-%{version}-filelist
