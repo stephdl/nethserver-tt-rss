@@ -15,6 +15,9 @@
 	define('CHECK_FOR_NEW_VERSION', false);
 	// Check for new versions of tt-rss automatically.
 
+	define('CHECK_FOR_UPDATES', false);
+	// Check for updates automatically if running Git version
+	
         define('ARTICLE_BUTTON_PLUGINS', 'note,tweet,share,mail');
         // Comma-separated list of additional article action button plugins
         // to enable, like tweet button, etc.
