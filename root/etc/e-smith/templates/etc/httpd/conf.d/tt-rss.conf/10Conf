@@ -17,7 +17,7 @@ $alias
 <Directory /usr/share/tt-rss>
     AddType application/x-httpd-php .php
     php_admin_value open_basedir /usr/share/tt-rss:/var/lock/tt-rss:/var/cache/tt-rss:/tmp
-    php_admin_value memory_limit 80M
+    php_admin_value memory_limit 256M
     php_admin_flag allow_url_fopen on
     SSLRequireSSL on
     Order deny,allow
@@ -26,6 +26,9 @@ $alias
     $auth
 </Directory>
 <Directory /usr/share/tt-rss/schema>
+    deny from all
+</Directory>
+<Directory /usr/share/tt-rss/install>
     deny from all
 </Directory>
 HERE

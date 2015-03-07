@@ -1,9 +1,7 @@
-# Authority: vip-ire
-# Name: Daniel Berteaud
 
 %define name nethserver-tt-rss
-%define version 0.2.8
-%define release 2
+%define version 1.0.0
+%define release 1
 Summary: NethServer integration of tt-rss
 Name: %{name}
 Version: %{version}
@@ -17,7 +15,7 @@ BuildArchitectures: noarch
 BuildRequires: perl
 BuildRequires: nethserver-devtools 
 BuildRoot: /var/tmp/%{name}-%{version}
-Requires: tt-rss >= 1.7.9
+Requires: tt-rss >= 1.15.3
 Requires: nethserver-httpd, nethserver-mysql, nethserver-directory
 Requires: mod_authnz_external, pwauth, php-mbstring, php-mysql, php-process
 AutoReqProv: no
@@ -26,7 +24,53 @@ AutoReqProv: no
 NethServer integration of TIny Tiny RSS
 Tiny Tiny RSS is a feature rich, web based feed reader
 
+%prep
+%setup
+%build
+perl ./createlinks
+%{__mkdir_p} root/var/lock/tt-rss
+%{__mkdir_p} root/var/log/tt-rss_update
+
+%install
+rm -rf $RPM_BUILD_ROOT
+(cd root   ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
+rm -f %{name}-%{version}-filelist
+/sbin/e-smith/genfilelist $RPM_BUILD_ROOT \
+  --dir /var/lock/tt-rss 'attr(0770,apache,apache)' \
+  --dir /var/log/tt-rss_update 'attr(0770,apache,apache)' \
+  > %{name}-%{version}-filelist
+
+%files -f %{name}-%{version}-filelist
+%defattr(-,root,root)
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%post
+/sbin/chkconfig --add tt-rss
+
+%preun
+if [ "$1" = 0 ]; then
+    # stop tt-rss silently, but only if it's running
+    /sbin/service tt-rss stop &>/dev/null
+    /sbin/chkconfig --del tt-rss
+fi
+
+exit 0
+
+%postun
+if [ "$1" != 0 ]; then
+	/sbin/service tt-rss restart 2>&1 > /dev/null
+fi
+
+exit 0
+
 %changelog
+* Sat Mar 7 2015 stephane de labrusse <stephdl@de-labrusse.fr> 1.0.0-1.ns6
+- First release to Nethserver
+- set 'CHECK_FOR_UPDATES' to 'false'
+- sysvinit tt-rss script incorporated
+
 * Thu Feb 6 2014 Daniel Berteaud <daniel@firewall-services.com> 0.2.8-1.sme
 - Fix database upgrades
 
@@ -83,44 +127,4 @@ Tiny Tiny RSS is a feature rich, web based feed reader
 * Mon Jan 03 2011 Daniel B. <daniel@firewall-services.com> 0.1-1
 - initial release
 
-%prep
-%setup
-%build
-perl ./createlinks
-%{__mkdir_p} root/var/lock/tt-rss
-%{__mkdir_p} root/var/log/tt-rss_update
-
-%install
-rm -rf $RPM_BUILD_ROOT
-(cd root   ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
-rm -f %{name}-%{version}-filelist
-/sbin/e-smith/genfilelist $RPM_BUILD_ROOT \
-  --dir /var/lock/tt-rss 'attr(0770,apache,apache)' \
-  --dir /var/log/tt-rss_update 'attr(0770,apache,apache)' \
-  > %{name}-%{version}-filelist
-
-%files -f %{name}-%{version}-filelist
-%defattr(-,root,root)
-
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-%post
-/sbin/chkconfig --add tt-rss
-
-%preun
-if [ "$1" = 0 ]; then
-    # stop tt-rss silently, but only if it's running
-    /sbin/service tt-rss stop &>/dev/null
-    /sbin/chkconfig --del tt-rss
-fi
-
-exit 0
-
-%postun
-if [ "$1" != 0 ]; then
-	/sbin/service tt-rss restart 2>&1 > /dev/null
-fi
-
-exit 0
 
