@@ -6,7 +6,7 @@ namespace NethServer\Module\Dashboard\Applications;
  *
  * @author stephane de labrusse
  */
-class tt-rss extends \Nethgui\Module\AbstractModule implements \NethServer\Module\Dashboard\Interfaces\ApplicationInterface
+class ttrss extends \Nethgui\Module\AbstractModule implements \NethServer\Module\Dashboard\Interfaces\ApplicationInterface
 {
 
     public function getName()
