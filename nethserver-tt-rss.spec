@@ -1,7 +1,7 @@
 
 %define name nethserver-tt-rss
 %define version 1.0.0
-%define release 2
+%define release 3
 Summary: NethServer integration of tt-rss
 Name: %{name}
 Version: %{version}
@@ -66,6 +66,9 @@ fi
 exit 0
 
 %changelog
+* Tue Apr 21 2015 stephane de labrusse <stephdl@de-labrusse.fr> 1.0.0-3.ns6
+- The event runlevel-adjust is now called in actions
+
 * Sat Mar 7 2015 stephane de labrusse <stephdl@de-labrusse.fr> 1.0.0-2.ns6
 - url is present in nethgui
 

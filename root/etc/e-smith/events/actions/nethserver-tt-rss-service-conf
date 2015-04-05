@@ -4,6 +4,8 @@ use esmith::ConfigDB;
 my $db = esmith::ConfigDB->open_ro;
 my $status = $db->get_prop('tt-rss','status')|| 'disabled';
 
+system ('/sbin/e-smith/signal-event runlevel-adjust');
+
 if ($status eq 'enabled') {
 system ('/sbin/service tt-rss restart');
 }
