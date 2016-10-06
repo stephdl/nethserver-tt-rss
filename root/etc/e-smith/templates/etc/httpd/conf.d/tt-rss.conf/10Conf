@@ -3,7 +3,7 @@
 if ((${'tt-rss'}{'status'} || 'enabled') eq 'enabled'){
 
     my $alias = ((${'tt-rss'}{'AliasOnPrimary'} || 'enabled') eq 'enabled' ) ? 'Alias /tt-rss /usr/share/tt-rss':'';
-    my $allow = ((${'tt-rss'}{'access'} || 'private') eq 'public') ? 'all':"$localAccess";
+    my $allow = ((${'tt-rss'}{'access'} || 'private') eq 'public') ? 'all granted':"ip $localAccess";
     my $auth = ((${'tt-rss'}{'Authentication'} || 'http') eq 'http') ? "AuthName \"Tiny Tiny RSS\"\n" .
                     "    AuthType Basic\n" .
                     "    AuthBasicProvider external\n" .
@@ -20,9 +20,7 @@ $alias
     php_admin_value memory_limit 256M
     php_admin_flag allow_url_fopen on
     SSLRequireSSL on
-    Order deny,allow
-    Deny from all
-    Allow from $allow
+    Require $allow
     $auth
 </Directory>
 <Directory /usr/share/tt-rss/schema>

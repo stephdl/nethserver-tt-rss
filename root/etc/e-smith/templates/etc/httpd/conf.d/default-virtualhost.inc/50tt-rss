@@ -1,0 +1,6 @@
+#
+# 50tt-rss
+#
+RewriteEngine On
+RewriteCond %\{HTTPS\} !=on
+RewriteRule ^/phpmyadmin(/.*)?$ https://%\{HTTP_HOST\}/tt-rss$1 [L,R=301]
