@@ -6,9 +6,9 @@ use strict;
 use Errno;
 use esmith::util;
 use NethServer::Password;
-use NethServer::Directory;
+#use NethServer::Directory;
 
-NethServer::Directory->new()->configServiceAccount('tt-rss', NethServer::Directory::FIELDS_READ) || die("Failed to register tt-rss service account");
+#NethServer::Directory->new()->configServiceAccount('tt-rss', NethServer::Directory::FIELDS_READ) || die("Failed to register tt-rss service account");
 
 if ( -d '/var/lib/mysql/ttrss') {
     system ('su -s /bin/sh apache -c "/usr/bin/php /usr/share/tt-rss/update.php --update-schema"');
