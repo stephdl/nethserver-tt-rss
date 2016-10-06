@@ -28,7 +28,7 @@ Tiny Tiny RSS is a feature rich, web based feed reader
 %setup
 %build
 perl ./createlinks
-%{__mkdir_p} root/var/lock/tt-rss
+#%{__mkdir_p} root/var/lock/tt-rss
 %{__mkdir_p} root/var/log/tt-rss_update
 
 %install
@@ -36,7 +36,7 @@ rm -rf $RPM_BUILD_ROOT
 (cd root   ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 rm -f %{name}-%{version}-filelist
 %{genfilelist} $RPM_BUILD_ROOT \
-  --dir /var/lock/tt-rss 'attr(0770,apache,apache)' \
+#  --dir /var/lock/tt-rss 'attr(0770,apache,apache)' \
   --dir /var/log/tt-rss_update 'attr(0770,apache,apache)' \
   > %{name}-%{version}-filelist
 
