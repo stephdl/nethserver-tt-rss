@@ -35,6 +35,7 @@ rm -rf $RPM_BUILD_ROOT
 (cd root   ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 rm -f %{name}-%{version}-filelist
 %{genfilelist} $RPM_BUILD_ROOT \
+  --file root/etc/rc.d/init.d/tt-rss 'attr(0755,root,root)' \
   --dir /var/log/tt-rss_update 'attr(0770,apache,apache)' \
   > %{name}-%{version}-filelist
 
