@@ -1,7 +1,7 @@
 
 %define name nethserver-tt-rss
-%define version 1.0.0
-%define release 4
+%define version 1.1.0
+%define release 1
 Summary: NethServer integration of tt-rss
 Name: %{name}
 Version: %{version}
@@ -16,8 +16,9 @@ BuildRequires: perl
 BuildRequires: nethserver-devtools 
 BuildRoot: /var/tmp/%{name}-%{version}
 Requires: tt-rss >= 1.15.3
-Requires: nethserver-httpd, nethserver-mysql, nethserver-directory
-Requires: mod_authnz_external, pwauth, php-mbstring, php-mysql, php-process
+Requires: nethserver-httpd, nethserver-mysql
+Requires: mod_authnz_pam
+Requires: php-mbstring, php-mysql, php-process
 AutoReqProv: no
 
 %description
@@ -28,20 +29,21 @@ Tiny Tiny RSS is a feature rich, web based feed reader
 %setup
 %build
 perl ./createlinks
-%{__mkdir_p} root/var/lock/tt-rss
 %{__mkdir_p} root/var/log/tt-rss_update
 
 %install
 rm -rf $RPM_BUILD_ROOT
 (cd root   ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 rm -f %{name}-%{version}-filelist
-/sbin/e-smith/genfilelist $RPM_BUILD_ROOT \
-  --dir /var/lock/tt-rss 'attr(0770,apache,apache)' \
+%{genfilelist} $RPM_BUILD_ROOT \
+  --file /etc/rc.d/init.d/tt-rss 'attr(0755,root,root)' \
   --dir /var/log/tt-rss_update 'attr(0770,apache,apache)' \
   > %{name}-%{version}-filelist
 
 %files -f %{name}-%{version}-filelist
 %defattr(-,root,root)
+
+%dir %{_nseventsdir}/%{name}-update
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -80,6 +82,9 @@ fi
 exit 0
 
 %changelog
+* Sat Oct 8 2016 stephane de labrusse <stephdl@de-labrusse.fr> 1.1.0-1.ns7
+- New version for NS7, now we authenticate by pam in apache
+
 * Sun May 3 2015 stephane de labrusse <stephdl@de-labrusse.fr> 1.0.0-4.ns6
 - disclamer
 

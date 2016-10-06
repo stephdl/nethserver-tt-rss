@@ -5,7 +5,7 @@
         // and potentially might lead to data loss or server exploit. Disabled
         // by default.
 
-        define('REG_NOTIFY_ADDRESS', 'admin@{$DomainName}');
+        define('REG_NOTIFY_ADDRESS', 'root@localhost');
         // Email address to send new user notifications to.
 
         define('REG_MAX_USERS', 0);
