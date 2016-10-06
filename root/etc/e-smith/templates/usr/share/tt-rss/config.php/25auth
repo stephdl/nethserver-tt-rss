@@ -2,7 +2,11 @@
 
 my $auth = ${'tt-rss'}{'Authentication'} || 'http';
 my $plugins = ($auth eq 'internal') ? 'auth_internal':'auth_remote';
-$plugin .= ',note';
+
+my $plugins4all = ${'tt-rss'}{'Plugins4All'} || 'note';
+$plugins4all =~ s/,$//;
+$plugins .= ",$plugins4all";
+
 my $multi = ((${'tt-rss'}{'MultiUser'} || 'enabled') eq 'enabled') ? 'false':'true';
 
 $OUT .=<<"HERE";

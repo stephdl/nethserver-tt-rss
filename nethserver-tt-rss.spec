@@ -1,7 +1,7 @@
 
 %define name nethserver-tt-rss
 %define version 1.0.0
-%define release 4
+%define release 5
 Summary: NethServer integration of tt-rss
 Name: %{name}
 Version: %{version}
@@ -80,6 +80,9 @@ fi
 exit 0
 
 %changelog
+* Sat Oct 8 2016 stephane de labrusse <stephdl@de-labrusse.fr> 1.0.0-5.ns6
+- added default plugins for all
+
 * Sun May 3 2015 stephane de labrusse <stephdl@de-labrusse.fr> 1.0.0-4.ns6
 - disclamer
 
