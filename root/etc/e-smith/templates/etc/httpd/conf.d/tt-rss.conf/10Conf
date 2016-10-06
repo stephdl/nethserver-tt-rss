@@ -4,15 +4,19 @@ if ((${'tt-rss'}{'status'} || 'enabled') eq 'enabled'){
 
     my $alias = ((${'tt-rss'}{'AliasOnPrimary'} || 'enabled') eq 'enabled' ) ? 'Alias /tt-rss /usr/share/tt-rss':'';
     my $allow = ((${'tt-rss'}{'access'} || 'private') eq 'public') ? 'all granted':"ip $localAccess";
-    my $auth = ((${'tt-rss'}{'Authentication'} || 'http') eq 'http') ? "AuthName \"Tiny Tiny RSS\"\n" .
+    my $auth = ((${'tt-rss'}{'Authentication'} || 'http') eq 'http') ? 
+                    "    <Location /tt-rss>\n" .
+                    "    AuthName \"Tiny Tiny RSS\"\n" .
                     "    AuthType Basic\n" .
-                    "    AuthBasicProvider external\n" .
-                    "    AuthExternal pwauth\n" .
-                    "    Require valid-user\n" : '';
+                    "    AuthBasicProvider PAM\n" .
+                    "    AuthPAMService ttrss\n" .
+                    "    Require valid-user\n" .
+                    "    </Location>\n" : '';
 
     $OUT .=<<"HERE";
 
 $alias
+$auth
 
 <Directory /usr/share/tt-rss>
     AddType application/x-httpd-php .php
@@ -21,13 +25,14 @@ $alias
     php_admin_flag allow_url_fopen on
     SSLRequireSSL on
     Require $allow
-    $auth
 </Directory>
+
 <Directory /usr/share/tt-rss/schema>
-    deny from all
+    Require all denied
 </Directory>
+
 <Directory /usr/share/tt-rss/install>
-    deny from all
+    Require all denied
 </Directory>
 HERE
 }

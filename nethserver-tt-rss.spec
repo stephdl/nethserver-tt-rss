@@ -16,8 +16,10 @@ BuildRequires: perl
 BuildRequires: nethserver-devtools 
 BuildRoot: /var/tmp/%{name}-%{version}
 Requires: tt-rss >= 1.15.3
-Requires: nethserver-httpd, nethserver-mysql, nethserver-directory
-Requires: mod_authnz_external, pwauth, php-mbstring, php-mysql, php-process
+Requires: nethserver-httpd, nethserver-mysql
+#Requires: mod_authnz_external, pwauth, 
+Requires: mod_authnz_pam
+Requires: php-mbstring, php-mysql, php-process
 AutoReqProv: no
 
 %description

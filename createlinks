@@ -14,6 +14,7 @@ templates2events("/usr/share/tt-rss/config.php", $event);
 templates2events("/etc/cron.d/tt-rss", $event);
 templates2events("/etc/httpd/conf.d/tt-rss.conf", $event);
 templates2events("/etc/httpd/conf.d/default-virtualhost.inc", $event);
+templates2events("/etc/httpd/conf.modules.d/55-authnz_pam.conf", $event);
 event_services($event, 'httpd' => 'reload');
 
 # PHP header and footer
