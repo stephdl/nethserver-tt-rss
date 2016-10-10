@@ -1,7 +1,7 @@
 
 %define name nethserver-tt-rss
 %define version 1.1.0
-%define release 1
+%define release 2
 Summary: NethServer integration of tt-rss
 Name: %{name}
 Version: %{version}
@@ -82,6 +82,9 @@ fi
 exit 0
 
 %changelog
+* Mon Oct 10 2016 stephane de labrusse <stephdl@de-labrusse.fr> 1.1.0-2.ns7
+- The default admin user is now admin@yourdomain
+
 * Sat Oct 8 2016 stephane de labrusse <stephdl@de-labrusse.fr> 1.1.0-1.ns7
 - New version for NS7, now we authenticate by pam in apache
 
