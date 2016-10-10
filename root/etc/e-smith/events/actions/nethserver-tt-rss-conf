@@ -6,9 +6,10 @@ use strict;
 use Errno;
 use esmith::util;
 use NethServer::Password;
-#use NethServer::Directory;
+use esmith::ConfigDB;
 
-#NethServer::Directory->new()->configServiceAccount('tt-rss', NethServer::Directory::FIELDS_READ) || die("Failed to register tt-rss service account");
+my $db = esmith::ConfigDB->open_ro() or die("Could not open ConfigDB");
+my $domain = $db->get_value('DomainName');
 
 if ( -d '/var/lib/mysql/ttrss') {
     system ('su -s /bin/sh apache -c "/usr/bin/php /usr/share/tt-rss/update.php --update-schema"');
@@ -57,4 +58,21 @@ print $altercommands;
 open(FH, '|-', '/usr/bin/mysql -B -f') || die("[ERROR] Could not connect to mysql");
 print FH $altercommands;
 close(FH);
+
+
+my $domain = 
+my $useralter = join("\n",
+"USE mysql;",
+"UPDATE ",
+"`ttrss`.`ttrss_users` ",
+" SET `login` = ", 
+"'admin\@$domain' ",
+"WHERE `ttrss_users`.`id` = 1;") ."\n";
+
+print $useralter;
+
+open(FH, '|-', '/usr/bin/mysql -B -f') || die("[ERROR] Could not connect to mysql");
+print FH $useralter;
+close(FH);
+
 }
