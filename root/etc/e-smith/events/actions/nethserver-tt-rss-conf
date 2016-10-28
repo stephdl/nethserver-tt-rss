@@ -60,19 +60,22 @@ print FH $altercommands;
 close(FH);
 
 
-my $domain = 
-my $useralter = join("\n",
+my $adminalter = join("\n",
 "USE mysql;",
-"UPDATE ",
+"INSERT INTO ",
 "`ttrss`.`ttrss_users` ",
-" SET `login` = ", 
-"'admin\@$domain' ",
-"WHERE `ttrss_users`.`id` = 1;") ."\n";
+"(`id`, `login`, `pwd_hash`, `last_login`, `access_level`, `email`, `full_name`, ",
+"`email_digest`, `last_digest_sent`, `salt`, `created`, `twitter_oauth`, `otp_enabled`, ",
+"`resetpass_token`) ",
+"VALUES ",
+"(NULL, 'admin\@$domain', ",
+"'SHA1:5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', ",
+"NULL, '10', '', '', '0', NULL, '', NULL, NULL, '0', NULL);")."\n";
 
-print $useralter;
+print $adminalter;
 
 open(FH, '|-', '/usr/bin/mysql -B -f') || die("[ERROR] Could not connect to mysql");
-print FH $useralter;
+print FH $adminalter;
 close(FH);
 
 }

@@ -1,7 +1,7 @@
 
 %define name nethserver-tt-rss
 %define version 1.1.0
-%define release 2
+%define release 3
 Summary: NethServer integration of tt-rss
 Name: %{name}
 Version: %{version}
@@ -38,6 +38,7 @@ rm -f %{name}-%{version}-filelist
 %{genfilelist} $RPM_BUILD_ROOT \
   --file /etc/rc.d/init.d/tt-rss 'attr(0755,root,root)' \
   --dir /var/log/tt-rss_update 'attr(0770,apache,apache)' \
+  --dir /var/lock/tt-rss 'attr(0775,apache,apache)' \
   > %{name}-%{version}-filelist
 
 %files -f %{name}-%{version}-filelist
@@ -82,6 +83,10 @@ fi
 exit 0
 
 %changelog
+* Sat Nov 5 2016 stephane de labrusse <stephdl@de-labrusse.fr> 1.1.0-3.ns7
+- creation of apache:apache /var/lock/tt-rss.
+- the admin (without the FQDN) can be used.
+
 * Mon Oct 10 2016 stephane de labrusse <stephdl@de-labrusse.fr> 1.1.0-2.ns7
 - The default admin user is now admin@yourdomain
 
