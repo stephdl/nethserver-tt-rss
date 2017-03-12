@@ -1,7 +1,7 @@
 
 %define name nethserver-tt-rss
 %define version 1.1.0
-%define release 3
+%define release 4
 Summary: NethServer integration of tt-rss
 Name: %{name}
 Version: %{version}
@@ -43,7 +43,7 @@ rm -f %{name}-%{version}-filelist
 
 %files -f %{name}-%{version}-filelist
 %defattr(-,root,root)
-
+%doc COPYING
 %dir %{_nseventsdir}/%{name}-update
 
 %clean
@@ -51,20 +51,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add tt-rss 2>&1 > /dev/null
-echo "
- Hi
-
- All my development work is done in my free time and from my own expenses. 
- If you consider my work as something helpful, thank you to kindly make 
- a donation to my paypal account and allow me to continue paying my server 
- and all associated costs.
-
- https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZPK8FKHVT4TY8
-
- Thank in advance.
- 
- Stephane de Labrusse Alias Stephdl
-"
 
 %preun
 if [ "$1" = 0 ]; then
@@ -83,6 +69,9 @@ fi
 exit 0
 
 %changelog
+* Sun Mar 12 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.1.0-4.ns7
+- GPL license
+
 * Sat Nov 5 2016 stephane de labrusse <stephdl@de-labrusse.fr> 1.1.0-3.ns7
 - creation of apache:apache /var/lock/tt-rss.
 - the admin (without the FQDN) can be used.
