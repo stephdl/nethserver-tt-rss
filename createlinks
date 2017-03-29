@@ -21,3 +21,6 @@ event_services($event, 'httpd' => 'reload');
 safe_symlink("/etc/e-smith/templates-default/template-begin-php", "root/etc/e-smith/templates/usr/share/tt-rss/config.php/template-begin");
 safe_symlink("/etc/e-smith/templates-default/template-end-php", "root/etc/e-smith/templates/usr/share/tt-rss/config.php/template-end");
 
+my $event = 'trusted-networks-modify';
+templates2events("/etc/httpd/conf.d/tt-rss.conf", $event);
+

@@ -1,7 +1,7 @@
 
 %define name nethserver-tt-rss
-%define version 1.1.0
-%define release 4
+%define version 1.1.1
+%define release 1
 Summary: NethServer integration of tt-rss
 Name: %{name}
 Version: %{version}
@@ -69,6 +69,9 @@ fi
 exit 0
 
 %changelog
+* Wed Mar 29 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.1.1-1.ns7
+- Template expansion on trusted-network
+
 * Sun Mar 12 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.1.0-4.ns7
 - GPL license
 
