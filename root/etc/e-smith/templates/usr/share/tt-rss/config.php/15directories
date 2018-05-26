@@ -1,4 +1,4 @@
-        define('SELF_URL_PATH', 'https://{$SystemName}.{$DomainName}/tt-rss');
+        define('SELF_URL_PATH', 'https://{${'tt-rss'}{DomainName} || $DomainName}/tt-rss');
         // Full URL of your tt-rss installation. This should be set to the
         // location of tt-rss directory, e.g. http://yourserver/tt-rss/
         // You need to set this option correctly otherwise several features

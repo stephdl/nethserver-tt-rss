@@ -1,6 +1,6 @@
 
 %define name nethserver-tt-rss
-%define version 1.1.2
+%define version 1.1.3
 %define release 1
 Summary: NethServer integration of tt-rss
 Name: %{name}
@@ -69,6 +69,9 @@ fi
 exit 0
 
 %changelog
+* Sat May 26 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.1.3-1.ns7
+- A domain name could be specified to be relevant to SELF_URL_PATH
+
 * Sun Sep 10 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.1.2-1.ns7
 - Restart httpd service on trusted-network
 
