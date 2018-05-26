@@ -16,11 +16,10 @@ class ttrss extends \Nethgui\Module\AbstractModule implements \NethServer\Module
 
     public function getInfo()
     {
-         $host = explode(':',$_SERVER['HTTP_HOST']);
-         return array(
-            'url' => "https://".$host[0]."/tt-rss/"
-         );
+        $customDomainName = $this->getPlatform()->getDatabase('configuration')->getProp('tt-rss','DomainName');
+        $DomainName = $this->getPlatform()->getDatabase('configuration')->getType('DomainName');
+        return array(
+            'url' => "https://".($customDomainName ?: $DomainName)."/tt-rss/"
+        );
     }
 }
-
-
