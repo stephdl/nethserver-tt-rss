@@ -18,7 +18,7 @@ BuildRoot: /var/tmp/%{name}-%{version}
 Requires: tt-rss >= 1.15.3
 Requires: nethserver-httpd, nethserver-mysql
 Requires: mod_authnz_pam
-Requires: php-mbstring, php-mysql, php-process
+Requires: rh-php71-php-mbstring, rh-php71-php-mysqlnd, rh-php71-php-opcache, rh-php71-php-process
 AutoReqProv: no
 
 %description
