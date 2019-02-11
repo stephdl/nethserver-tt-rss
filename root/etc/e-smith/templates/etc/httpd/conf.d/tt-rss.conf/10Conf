@@ -3,6 +3,7 @@
 if ((${'tt-rss'}{'status'} || 'enabled') eq 'enabled'){
 
     my $alias = ((${'tt-rss'}{'AliasOnPrimary'} || 'enabled') eq 'enabled' ) ? 'Alias /tt-rss /usr/share/tt-rss':'';
+    my $php_port = ${'rh-php71-php-fpm'}{'TCPPorts'} || '9001';
     my $allow = ((${'tt-rss'}{'access'} || 'private') eq 'public') ? 'all granted':"ip $localAccess";
     my $auth = ((${'tt-rss'}{'Authentication'} || 'http') eq 'http') ? 
                     "    <Location /tt-rss>\n" .
@@ -19,6 +20,9 @@ $alias
 $auth
 
 <Directory /usr/share/tt-rss>
+    <FilesMatch \.php$>
+      SetHandler "proxy:fcgi://127.0.0.1:'.$php_port.'"
+    </FilesMatch>
     AddType application/x-httpd-php .php
     php_admin_value open_basedir /usr/share/tt-rss:/var/lock/tt-rss:/var/cache/tt-rss:/tmp
     php_admin_value memory_limit 256M
