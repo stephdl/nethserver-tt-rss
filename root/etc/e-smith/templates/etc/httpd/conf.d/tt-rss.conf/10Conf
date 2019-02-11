@@ -20,8 +20,8 @@ $alias
 $auth
 
 <Directory /usr/share/tt-rss>
-    <FilesMatch \.php$>
-      SetHandler "proxy:fcgi://127.0.0.1:'.$php_port.'"
+    <FilesMatch \.php\$>
+      SetHandler "proxy:fcgi://127.0.0.1:$php_port"
     </FilesMatch>
     AddType application/x-httpd-php .php
     php_admin_value open_basedir /usr/share/tt-rss:/var/lock/tt-rss:/var/cache/tt-rss:/tmp
